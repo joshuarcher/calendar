@@ -12,7 +12,7 @@ However, we have set up the project to allow you to use plain JavaScript if you 
 
 ## When you're done
 
-Once you've completed the assignment, please email your hiring contact with a link to the repository containing your completed project.
+Once you've completed the assignment, please submit a pull request to your own repository and send us a link to your repo.
 
 ## Instructions
 
