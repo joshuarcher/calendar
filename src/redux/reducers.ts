@@ -12,6 +12,7 @@ const initialAgendaState = {
 };
 
 const initialAddReminderState = {
+  reminder: null,
   isOpen: false,
 };
 
@@ -20,7 +21,18 @@ let initialRemindersState = [];
 function updateReminders(state = initialRemindersState, action: any) {
   switch (action.type) {
     case ADD_REMINDER:
-      return [...state, action.reminder];
+      const index = state.findIndex(reminder => {
+        return Number(reminder.id) === Number(action.reminder.id);
+      });
+
+      let newReminderList = [];
+      if(index > -1) { 
+        newReminderList = [...state.splice(index, 0), action.reminder];
+        console.log(newReminderList);
+      } else {
+        newReminderList = [...state, action.reminder];
+      }
+      return newReminderList;
     default:
       return state;
   }
@@ -47,10 +59,12 @@ function addReminderStatus(state = initialAddReminderState, action: any) {
   switch (action.type) {
     case OPEN_ADD_REMINDER:
       return {
+        reminder: action.reminder,
         isOpen: true,
       };
     case CLOSE_ADD_REMINDER:
       return {
+        reminder: action.reminder,
         isOpen: false,
       };
     default:

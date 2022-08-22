@@ -108,7 +108,7 @@ const CalendarDay = (props: Props) => {
     >
       <Avatar className={avatarClass}>{getDate(dateObj.date)}</Avatar>
       <div className={classes.remindersContainer}>
-       <ReminderListContainer date={dateObj.date}/>
+       <ReminderListContainer date={dateObj.date} isEditButtonVisible={false}/>
       </div>
     </div>
   );

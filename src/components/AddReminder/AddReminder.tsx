@@ -12,6 +12,7 @@ import {
   Theme,
 } from "@material-ui/core/styles";
 import ReminderContainer from "../Reminder/ReminderContainer";
+import { ReminderInterface } from "../../utils/reminderInterface";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -29,12 +30,14 @@ const styles = (theme: Theme) =>
   });
 
 interface Props extends WithStyles<typeof styles> {
+  reminder: ReminderInterface;
   isOpen: boolean;
   onClose: () => void;
 }
 
 const AddReminder = (props: Props) => {
-  const { classes, isOpen, onClose } = props;
+  const { classes, isOpen, onClose, reminder } = props;
+  let title = reminder ? 'Edit Reminder' : 'Add Reminder';
 
   return (
     <Dialog
@@ -45,7 +48,7 @@ const AddReminder = (props: Props) => {
       maxWidth="md"
     >
       <DialogTitle id="form-dialog-title">
-        Add Reminder
+        {title}
         <IconButton
           aria-label="Close"
           className={classes.closeButton}
@@ -56,7 +59,7 @@ const AddReminder = (props: Props) => {
       </DialogTitle>
       <Divider light />
       <DialogContent className={classes.addReminderFormContainer}>
-        <ReminderContainer />
+        <ReminderContainer reminder={reminder} />
       </DialogContent>
     </Dialog>
   );

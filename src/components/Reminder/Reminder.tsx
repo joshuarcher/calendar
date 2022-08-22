@@ -47,14 +47,15 @@ const styles = (theme: Theme) =>
     });
 
 interface Props extends WithStyles<typeof styles> {
+    reminder?: ReminderInterface;
     onSubmit: (reminder: ReminderInterface) => void;
 }
 
 const Reminder = (props: Props) => {
-    const { classes, onSubmit } = props;
-    const [title, setTitle] = useState("");
-    const [dateTime, setDateTime] = useState(new Date());
-    const [color, setColor] = useState("");
+    const { classes, onSubmit, reminder } = props;
+    const [title, setTitle] = useState(reminder ? reminder.title : "");
+    const [dateTime, setDateTime] = useState(reminder ? reminder.date : new Date());
+    const [color, setColor] = useState(reminder ? reminder.color : "");
     const labelWidth = 0;
     const colors = {
         Red: "#CC2936",
@@ -68,13 +69,13 @@ const Reminder = (props: Props) => {
         if (color.length === 0) {
             return;
         }
-        const reminder: ReminderInterface = {
-            id: new Date().getTime(),
+        const newReminder: ReminderInterface = {
+            id: reminder?.id ? reminder.id : new Date().getTime(),
             title: title,
             date: dateTime,
             color: color
         }
-        onSubmit(reminder);
+        onSubmit(newReminder);
         alert('Successfully created new reminder!');
     }
 

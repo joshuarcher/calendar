@@ -68,7 +68,7 @@ const AgendaDay = (props: Props) => {
       </DialogTitle>
       <Divider light />
       <DialogContent className={classes.remindersContainer}>
-        <ReminderListContainer date={agendaStatus.date} />
+        <ReminderListContainer date={agendaStatus.date} isEditButtonVisible={true}/>
       </DialogContent>
     </Dialog>
   );
