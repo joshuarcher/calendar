@@ -8,6 +8,7 @@ import {
 import DaysRow from "./DaysRow";
 import MonthContainer from "./MonthContainer";
 import { getMonthCells } from "../../utils/dateUtils";
+import { ReminderInterface } from "../../utils/reminderInterface";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -23,15 +24,16 @@ const styles = (theme: Theme) =>
 
 interface Props extends WithStyles<typeof styles> {
   date: Date;
+  reminders: ReminderInterface[];
 }
 
 const CalendarGrid = (props: Props) => {
-  const { classes, date } = props;
+  const { classes, date, reminders } = props;
   const calendarCells = getMonthCells(date);
   return (
     <div className={classes.calendarGrid}>
       <DaysRow />
-      <MonthContainer date={date} calendarCells={calendarCells} />
+      <MonthContainer date={date} calendarCells={calendarCells} reminders={reminders} />
     </div>
   );
 };

@@ -8,6 +8,8 @@ import {
   createStyles,
 } from "@material-ui/core/styles";
 import { isSameMonth, isSameDay, getDate } from "date-fns";
+import ReminderListContainer from "../ReminderList/ReminderListContainer";
+import { ReminderInterface } from "../../utils/reminderInterface";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -70,11 +72,12 @@ interface DateObj {
 interface Props extends WithStyles<typeof styles> {
   calendarDate: Date;
   dateObj: DateObj;
+  reminders: ReminderInterface[];
   onDayClick: (dateObj: DateObj) => void;
 }
 
 const CalendarDay = (props: Props) => {
-  const { classes, dateObj, calendarDate, onDayClick } = props;
+  const { classes, dateObj, calendarDate, onDayClick, reminders } = props;
   const [focused, setFocused] = useState(false);
 
   const isToday = isSameDay(dateObj.date, new Date());
@@ -103,7 +106,7 @@ const CalendarDay = (props: Props) => {
     >
       <Avatar className={avatarClass}>{getDate(dateObj.date)}</Avatar>
       <div className={classes.remindersContainer}>
-        {/* reminders go here */}
+       <ReminderListContainer reminders={reminders} />
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import {
   createStyles,
 } from "@material-ui/core/styles";
 import CalendarDayContainer from "../CalendarDay/CalendarDayContainer";
+import { ReminderInterface } from "../../utils/reminderInterface";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -24,6 +25,7 @@ interface Props extends WithStyles<typeof styles> {
     date: Date;
   }[];
   date: Date;
+  reminders: ReminderInterface[];
 }
 
 const MonthContainer = (props: Props) => (
@@ -33,6 +35,7 @@ const MonthContainer = (props: Props) => (
         key={i}
         calendarDate={props.date}
         dateObj={dateObj}
+        reminders={props.reminders}
       />
     ))}
   </div>

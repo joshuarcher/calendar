@@ -16,6 +16,7 @@ export const daysArr = [
   "Friday",
   "Saturday",
 ];
+
 export const monthsArr = [
   "January",
   "February",

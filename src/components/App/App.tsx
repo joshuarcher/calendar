@@ -18,6 +18,7 @@ import CalendarGrid from "../CalendarGrid";
 import AgendaDayContainer from "../AgendaDay/AgendaDayContainer";
 import AddReminderContainer from "../AddReminder/AddReminderContainer";
 import "./App.css";
+import { ReminderInterface } from "../../utils/reminderInterface";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -62,6 +63,7 @@ interface Props extends WithStyles<typeof styles> {
 
 interface State {
   date: Date;
+  reminders: ReminderInterface[];
 }
 
 class App extends Component<Props, State> {
@@ -70,6 +72,7 @@ class App extends Component<Props, State> {
 
     this.state = {
       date: new Date(),
+      reminders: []
     };
   }
 
@@ -86,7 +89,7 @@ class App extends Component<Props, State> {
 
   render() {
     const { classes, onFabAddClick } = this.props;
-    const { date } = this.state;
+    const { date, reminders } = this.state;
 
     const month = date.toLocaleString("en-us", { month: "long" });
     const year = dateFns.getYear(date);
@@ -105,7 +108,7 @@ class App extends Component<Props, State> {
               <KeyboardArrowRightIcon fontSize="large" />
             </IconButton>
           </header>
-          <CalendarGrid date={date} />
+          <CalendarGrid date={date} reminders={reminders} />
           <Fab
             aria-label="Add"
             className={classes.fabAdd}
