@@ -20,8 +20,7 @@ let initialRemindersState = [];
 function updateReminders(state = initialRemindersState, action: any) {
   switch (action.type) {
     case ADD_REMINDER:
-      state.push(action.reminder);
-      return state;
+      return [...state, action.reminder];
     default:
       return state;
   }

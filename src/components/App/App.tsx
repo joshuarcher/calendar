@@ -46,7 +46,7 @@ const styles = (theme: Theme) =>
       width: "100%",
     },
     fabAdd: {
-      position: "absolute",
+      position: "fixed",
       bottom: "60px",
       right: "50px",
       color: "#FFF",
@@ -89,7 +89,7 @@ class App extends Component<Props, State> {
 
   render() {
     const { classes, onFabAddClick } = this.props;
-    const { date, reminders } = this.state;
+    const { date } = this.state;
 
     const month = date.toLocaleString("en-us", { month: "long" });
     const year = dateFns.getYear(date);
@@ -108,7 +108,7 @@ class App extends Component<Props, State> {
               <KeyboardArrowRightIcon fontSize="large" />
             </IconButton>
           </header>
-          <CalendarGrid date={date} reminders={reminders} />
+          <CalendarGrid date={date}/>
           <Fab
             aria-label="Add"
             className={classes.fabAdd}

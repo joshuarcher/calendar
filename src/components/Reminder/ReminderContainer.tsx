@@ -6,13 +6,9 @@ import { addReminder } from "../../redux/actions";
 interface Props { }
 
 interface State {
-    updateReminders: {
-        reminders: ReminderInterface[]
-    }
 }
 const mapStateToProps = (state: State, ownProps: Props) => {
     return {
-        reminders: state.updateReminders.reminders,
       };
 };
 

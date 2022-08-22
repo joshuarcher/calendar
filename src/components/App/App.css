@@ -8,6 +8,5 @@ body {
 }
 
 body #root {
-  display: flex;
   width: 100%;
 }

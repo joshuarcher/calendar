@@ -9,7 +9,6 @@ import {
 } from "@material-ui/core/styles";
 import { isSameMonth, isSameDay, getDate } from "date-fns";
 import ReminderListContainer from "../ReminderList/ReminderListContainer";
-import { ReminderInterface } from "../../utils/reminderInterface";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -19,6 +18,8 @@ const styles = (theme: Theme) =>
       flexDirection: "column",
       border: "1px solid lightgray",
       cursor: "pointer",
+      height: "150px",
+      "overflow-y": "scroll"
     },
     dayCellOutsideMonth: {
       display: "flex",
@@ -27,6 +28,8 @@ const styles = (theme: Theme) =>
       border: "1px solid lightgray",
       backgroundColor: "rgba( 211, 211, 211, 0.4 )",
       cursor: "pointer",
+      height: "150px",
+      "overflow-y": "scroll"
     },
     dateNumber: {
       margin: 5,
@@ -72,12 +75,11 @@ interface DateObj {
 interface Props extends WithStyles<typeof styles> {
   calendarDate: Date;
   dateObj: DateObj;
-  reminders: ReminderInterface[];
   onDayClick: (dateObj: DateObj) => void;
 }
 
 const CalendarDay = (props: Props) => {
-  const { classes, dateObj, calendarDate, onDayClick, reminders } = props;
+  const { classes, dateObj, calendarDate, onDayClick } = props;
   const [focused, setFocused] = useState(false);
 
   const isToday = isSameDay(dateObj.date, new Date());
@@ -106,7 +108,7 @@ const CalendarDay = (props: Props) => {
     >
       <Avatar className={avatarClass}>{getDate(dateObj.date)}</Avatar>
       <div className={classes.remindersContainer}>
-       <ReminderListContainer reminders={reminders} />
+       <ReminderListContainer date={dateObj.date}/>
       </div>
     </div>
   );

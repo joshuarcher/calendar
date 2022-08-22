@@ -47,24 +47,20 @@ const Reminder = (props: Props) => {
     const [dateTime, setDateTime] = useState(new Date());
     const [color, setColor] = useState("");
     const colors = {
-        None: "",
-        Red: "CC2936",
-        Yellow: "C59849",
-        Green: "43AA8B",
-        Blue: "3F88C5",
-        Purple: "643A71"
+        Red: "#CC2936",
+        Yellow: "#C59849",
+        Green: "#43AA8B",
+        Blue: "#3F88C5",
+        Purple: "#643A71"
     };
-    let uuidCounter = 0;
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const reminder : ReminderInterface = {
-            id: uuidCounter,
+            id: new Date().getTime(),
             title: title,
             date: dateTime,
             color: color
         }
-        uuidCounter++;
         onSubmit(reminder);
     }
 

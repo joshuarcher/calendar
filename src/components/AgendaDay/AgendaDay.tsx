@@ -5,7 +5,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import {
   WithStyles,
   withStyles,
@@ -14,6 +13,7 @@ import {
 } from "@material-ui/core/styles";
 
 import * as dateFns from "date-fns";
+import ReminderListContainer from "../ReminderList/ReminderListContainer";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -68,7 +68,7 @@ const AgendaDay = (props: Props) => {
       </DialogTitle>
       <Divider light />
       <DialogContent className={classes.remindersContainer}>
-        <Typography>Use this space to list the reminders.</Typography>
+        <ReminderListContainer date={agendaStatus.date} />
       </DialogContent>
     </Dialog>
   );
