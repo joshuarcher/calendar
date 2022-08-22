@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import Reminder from "./Reminder";
 import { ReminderInterface } from "../../utils/reminderInterface";
-import { addReminder } from "../../redux/actions";
+import { addReminder, closeAddReminder } from "../../redux/actions";
 
 interface Props { }
 
@@ -16,6 +16,7 @@ const mapDispatchToProps = (dispatch: any) => {
     return {
         onSubmit: (reminder: ReminderInterface) => {
             dispatch(addReminder(reminder));
+            dispatch(closeAddReminder());
         },
     };
 };

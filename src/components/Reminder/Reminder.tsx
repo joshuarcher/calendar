@@ -5,7 +5,7 @@ import {
     createStyles,
     Theme,
 } from "@material-ui/core/styles";
-import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
+import { TextField, Button, FormControl, InputLabel, Select, MenuItem, OutlinedInput } from "@material-ui/core";
 import {
     MuiPickersUtilsProvider,
     DateTimePicker,
@@ -24,21 +24,30 @@ const styles = (theme: Theme) =>
             display: "flex"
         },
         DateContainer: {
-            margin: "10px",
+            marginTop: "20px",
+            marginLeft: "10px",
+            marginRight: "10px",
+            marginBottom: "10px",
             display: "flex"
         },
         ColorContainer: {
-            margin: "10px",
+            marginTop: "20px",
+            marginLeft: "10px",
+            marginRight: "10px",
+            marginBottom: "10px",
             display: "flex"
         },
         SubmitContainer: {
-            margin: "30px",
+            marginTop: "20px",
+            marginLeft: "10px",
+            marginRight: "10px",
+            marginBottom: "10px",
             display: "flex"
         }
     });
 
 interface Props extends WithStyles<typeof styles> {
-    onSubmit: (reminder : ReminderInterface) => void;
+    onSubmit: (reminder: ReminderInterface) => void;
 }
 
 const Reminder = (props: Props) => {
@@ -46,6 +55,7 @@ const Reminder = (props: Props) => {
     const [title, setTitle] = useState("");
     const [dateTime, setDateTime] = useState(new Date());
     const [color, setColor] = useState("");
+    const labelWidth = 0;
     const colors = {
         Red: "#CC2936",
         Yellow: "#C59849",
@@ -55,17 +65,21 @@ const Reminder = (props: Props) => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        const reminder : ReminderInterface = {
+        if (color.length === 0) {
+            return;
+        }
+        const reminder: ReminderInterface = {
             id: new Date().getTime(),
             title: title,
             date: dateTime,
             color: color
         }
         onSubmit(reminder);
+        alert('Successfully created new reminder!');
     }
 
     const handleTitleValidation = (value: string) => {
-        if(value.length <= 30) {
+        if (value.length <= 30) {
             setTitle(value);
         }
     }
@@ -89,6 +103,8 @@ const Reminder = (props: Props) => {
                     <Grid item>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <DateTimePicker
+                                label="Date & Time"
+                                variant="outlined"
                                 className={classes.DateContainer}
                                 value={dateTime}
                                 onChange={setDateTime} />
@@ -97,7 +113,16 @@ const Reminder = (props: Props) => {
                     <Grid item>
                         <FormControl required variant="outlined" className={classes.ColorContainer}>
                             <InputLabel htmlFor="color">Color</InputLabel>
-                            <Select value={color} onChange={e => setColor(e.target.value)}>
+                            <Select
+                                value={color}
+                                onChange={e => setColor(e.target.value)}
+                                input={
+                                    <OutlinedInput
+                                        labelWidth={labelWidth}
+                                        name="color"
+                                        id="outlined-color"
+                                    />
+                                }>
                                 {Object.keys(colors).map(color => {
                                     return <MenuItem key={color} value={colors[color]}>
                                         {color}
