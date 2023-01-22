@@ -23,6 +23,10 @@ Once you've completed the assignment, please submit a pull request to your own r
   4. Display reminders on the calendar view in the correct time order.
       - If you click on a calendar cell, an empty dialog will appear. You may also use this space to display reminders.
   5. Properly handle overflow when multiple reminders appear on the same date.
+  
+## Bonus Items
+  1. Connect reminders to a backend (firebase?)
+  2. Demonstrate something you're uniquely skilled at
 
 ## To Begin
 
