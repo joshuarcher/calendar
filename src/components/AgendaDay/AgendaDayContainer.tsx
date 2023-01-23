@@ -1,10 +1,12 @@
-import { connect } from "react-redux";
-import AgendaDay from "./AgendaDay";
-import { closeAgenda } from "../../redux/actions";
+import { Reminder, closeAgenda } from '../../redux/actions';
+
+import AgendaDay from './AgendaDay';
+import { connect } from 'react-redux';
 
 interface Props {}
 
 interface State {
+  addReminder: Reminder[];
   agendaStatus: {
     isOpen: boolean;
     date: Date;
@@ -12,9 +14,9 @@ interface State {
 }
 
 const mapStateToProps = (state: State, ownProps: Props) => {
-  const { agendaStatus } = state;
+  const { addReminder, agendaStatus } = state;
 
-  return { agendaStatus };
+  return { addReminder, agendaStatus };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -25,9 +27,6 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-const AgendaDayContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AgendaDay);
+const AgendaDayContainer = connect(mapStateToProps, mapDispatchToProps)(AgendaDay);
 
 export default AgendaDayContainer;

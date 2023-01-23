@@ -1,40 +1,37 @@
-import React from "react";
-import CloseIcon from "@material-ui/icons/Close";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import {
-  WithStyles,
-  withStyles,
-  Theme,
-  createStyles,
-} from "@material-ui/core/styles";
+import { Theme, WithStyles, createStyles, withStyles } from '@material-ui/core/styles';
 
-import * as dateFns from "date-fns";
+import CloseIcon from '@material-ui/icons/Close';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import React from 'react';
+import { Reminder } from '../../redux/actions';
+import { Reminders } from '../Reminders/Reminders';
+import format from 'date-fns/format';
 
 const styles = (theme: Theme) =>
   createStyles({
     remindersContainer: {
-      minHeight: "250px",
-      marginTop: "10px",
+      minHeight: '250px',
+      marginTop: '10px',
     },
     closeButton: {
-      position: "absolute",
-      right: "10px",
-      top: "10px",
+      position: 'absolute',
+      right: '10px',
+      top: '10px',
     },
     toolbarButtonHidden: {
-      visibility: "hidden",
+      visibility: 'hidden',
     },
     toolbarButtonVisible: {
-      visibility: "visible",
+      visibility: 'visible',
     },
   });
 
 interface Props extends WithStyles<typeof styles> {
+  addReminder: Reminder[];
   agendaStatus: {
     isOpen: boolean;
     date: Date;
@@ -43,32 +40,26 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const AgendaDay = (props: Props) => {
-  const { classes, agendaStatus, onClose } = props;
-  const dateTitle = agendaStatus.date
-    ? dateFns.format(agendaStatus.date, "LLLL do, yyyy")
-    : "Closing";
+  const { addReminder, classes, agendaStatus, onClose } = props;
+  const dateTitle = agendaStatus.date ? format(agendaStatus.date, 'LLLL do, yyyy') : 'Closing';
 
   return (
     <Dialog
       open={agendaStatus.isOpen}
       onClose={onClose}
-      aria-labelledby="form-dialog-title"
+      aria-labelledby='form-dialog-title'
       fullWidth={true}
-      maxWidth="md"
+      maxWidth='md'
     >
-      <DialogTitle id="form-dialog-title">
+      <DialogTitle id='form-dialog-title'>
         {dateTitle}
-        <IconButton
-          aria-label="Close"
-          className={classes.closeButton}
-          onClick={onClose}
-        >
+        <IconButton aria-label='Close' className={classes.closeButton} onClick={onClose}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
       <Divider light />
       <DialogContent className={classes.remindersContainer}>
-        <Typography>Use this space to list the reminders.</Typography>
+        <Reminders reminders={addReminder} date={agendaStatus.date} />
       </DialogContent>
     </Dialog>
   );

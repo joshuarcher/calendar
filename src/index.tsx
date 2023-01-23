@@ -1,11 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import "./index.css";
+
+import * as serviceWorker from "./serviceWorker";
+
 import AppContainer from "./components/App/AppContainer";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import React from "react";
+import ReactDOM from "react-dom";
 import calendarApp from "./redux/reducers";
-import * as serviceWorker from "./serviceWorker";
-import "./index.css";
+import { createStore } from "redux";
 
 declare global {
   interface Window {

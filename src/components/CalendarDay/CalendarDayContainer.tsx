@@ -1,17 +1,20 @@
-import { connect } from "react-redux";
-import CalendarDay from "./CalendarDay";
-import { openAgenda } from "../../redux/actions";
+import { Reminders, openAgenda } from '../../redux/actions';
+
+import CalendarDay from './CalendarDay';
+import { connect } from 'react-redux';
 
 interface Props {}
 
-interface State {}
+interface State {
+  addReminder: Reminders;
+}
 
 interface DateObj {
   date: Date;
 }
 
 const mapStateToProps = (state: State, ownProps: Props) => {
-  return { ...state, ...ownProps };
+  return { reminders: state.addReminder, ...ownProps };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -22,9 +25,6 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-const CalendarDayContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CalendarDay);
+const CalendarDayContainer = connect(mapStateToProps, mapDispatchToProps)(CalendarDay);
 
 export default CalendarDayContainer;

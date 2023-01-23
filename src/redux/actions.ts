@@ -1,9 +1,12 @@
 // action types
-export const OPEN_AGENDA = "OPEN_AGENDA";
-export const CLOSE_AGENDA = "CLOSE_AGENDA";
-export const OPEN_ADD_REMINDER = "OPEN_ADD_REMINDER";
-export const CLOSE_ADD_REMINDER = "CLOSE_ADD_REMINDER";
+export const OPEN_AGENDA = 'OPEN_AGENDA';
+export const CLOSE_AGENDA = 'CLOSE_AGENDA';
+export const OPEN_ADD_REMINDER = 'OPEN_ADD_REMINDER';
+export const CLOSE_ADD_REMINDER = 'CLOSE_ADD_REMINDER';
+export const SAVE_REMINDER = 'SAVE_REMINDER';
 
+export type Reminder = { id: string; title: string; color: string; datetime: Date };
+export type Reminders = Reminder[];
 interface DateObj {
   date: Date;
 }
@@ -23,4 +26,8 @@ export function openAddReminder(reminder?: any) {
 
 export function closeAddReminder() {
   return { type: CLOSE_ADD_REMINDER };
+}
+
+export function saveReminder(reminder: Reminder) {
+  return { type: SAVE_REMINDER, reminder };
 }

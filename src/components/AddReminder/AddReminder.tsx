@@ -1,64 +1,78 @@
-import React from "react";
-import CloseIcon from "@material-ui/icons/Close";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import {
-  WithStyles,
-  withStyles,
-  createStyles,
-  Theme,
-} from "@material-ui/core/styles";
+import { Button, TextField } from '@material-ui/core';
+import { Theme, WithStyles, createStyles, withStyles } from '@material-ui/core/styles';
+
+import CloseIcon from '@material-ui/icons/Close';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import React from 'react';
+import { Reminder } from '../../redux/actions';
+import format from 'date-fns/format';
+import short from 'short-uuid';
+import { useState } from 'react';
 
 const styles = (theme: Theme) =>
   createStyles({
     addReminderFormContainer: {
-      minHeight: "250px",
-      marginTop: "10px",
-      display: "flex",
-      flexDirection: "column",
+      minHeight: '250px',
+      marginTop: '10px',
+      display: 'flex',
+      flexDirection: 'column',
     },
     closeButton: {
-      position: "absolute",
-      right: "10px",
-      top: "10px",
+      position: 'absolute',
+      right: '10px',
+      top: '10px',
     },
   });
 
 interface Props extends WithStyles<typeof styles> {
   isOpen: boolean;
   onClose: () => void;
+  onSave: (reminder: Reminder) => void;
 }
 
 const AddReminder = (props: Props) => {
-  const { classes, isOpen, onClose } = props;
+  const { classes, isOpen, onClose, onSave } = props;
+  const [title, setTitle] = useState('Sample title');
+  const [color, setColor] = useState('#d41616');
+  const [date, setDate] = useState(format(new Date(), `yyyy-MM-dd'T'HH:mm`));
+
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const reminder = { id: short.generate(), title, color, datetime: new Date(date) };
+
+    onSave(reminder);
+    onClose();
+  }
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={onClose}
-      aria-labelledby="form-dialog-title"
-      fullWidth={true}
-      maxWidth="md"
-    >
-      <DialogTitle id="form-dialog-title">
+    <Dialog open={isOpen} onClose={onClose} aria-labelledby='form-dialog-title' fullWidth={true} maxWidth='md'>
+      <DialogTitle id='form-dialog-title'>
         Add Reminder
-        <IconButton
-          aria-label="Close"
-          className={classes.closeButton}
-          onClick={onClose}
-        >
+        <IconButton aria-label='Close' className={classes.closeButton} onClick={onClose}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
       <Divider light />
       <DialogContent className={classes.addReminderFormContainer}>
-        <Typography>
-          Use this space to create the UI to add a reminder to the calendar.
-        </Typography>
+        <form onSubmit={onSubmit}>
+          <div style={{ display: 'grid', gridGap: '1rem' }}>
+            <div style={{ display: 'grid', gridGap: '1rem', gridTemplateColumns: '5rem 1fr', alignItems: 'center' }}>
+              <input placeholder='color' value={color} onChange={(e) => setColor(e.target.value)} type='color' />
+              <TextField placeholder='title' value={title} onChange={(e) => setTitle(e.target.value.slice(0, 30))} />
+            </div>
+            <TextField
+              placeholder='date'
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              type='datetime-local'
+            />
+            <Button type='submit'>Save</Button>
+          </div>
+        </form>
       </DialogContent>
     </Dialog>
   );
