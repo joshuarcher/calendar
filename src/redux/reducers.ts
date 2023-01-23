@@ -111,7 +111,13 @@ function addReminderStatus(state = initialAddReminderState, action: any) {
 function addReminder(state = DEFAULT_REMINDERS, action: any) {
   switch (action.type) {
     case SAVE_REMINDER: {
-      const updatedReminders = [...state, action.reminder];
+      const updatedReminders = [...state];
+      const existingReminderIndex = updatedReminders.findIndex((reminder) => reminder.id === action.reminder.id);
+      if (existingReminderIndex > -1) {
+        updatedReminders[existingReminderIndex] = action.reminder;
+      } else {
+        updatedReminders.push(action.reminder);
+      }
 
       setReminders(updatedReminders);
 

@@ -55,6 +55,7 @@ const styles = (theme: Theme) =>
   });
 
 interface Props extends WithStyles<typeof styles> {
+  syncReminders: () => void;
   onFabAddClick: () => void;
 }
 
@@ -69,6 +70,8 @@ class App extends Component<Props, State> {
     this.state = {
       date: new Date(),
     };
+
+    this.props.syncReminders();
   }
 
   compnentDidMount() {

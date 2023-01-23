@@ -1,6 +1,8 @@
+import { openAddReminder, saveReminder } from '../../redux/actions';
+
 import App from './App';
 import { connect } from 'react-redux';
-import { openAddReminder } from '../../redux/actions';
+import { getReminders } from '../../utils/localforage';
 
 interface Props {}
 interface State {}
@@ -11,6 +13,11 @@ const mapStateToProps = (state: State, ownProps: Props) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
+    syncReminders: async () => {
+      const reminders = await getReminders();
+
+      reminders.map((reminder) => dispatch(saveReminder(reminder)));
+    },
     onFabAddClick: () => {
       dispatch(openAddReminder());
     },
