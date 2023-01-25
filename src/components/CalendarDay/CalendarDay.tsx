@@ -6,6 +6,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { Reminders } from '../Reminders/Reminders';
 import { Reminders as RemindersType } from '../../redux/actions';
 import deepPurple from '@material-ui/core/colors/deepPurple';
+import { useFirebase } from '../../contexts/firebase-context';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -75,7 +76,8 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const CalendarDay = (props: Props) => {
-  const { reminders, classes, dateObj, calendarDate, onDayClick } = props;
+  const { classes, dateObj, calendarDate, onDayClick } = props;
+  const { reminders } = useFirebase();
   const [focused, setFocused] = useState(false);
   const isToday = isSameDay(dateObj.date, new Date());
   const avatarClass =

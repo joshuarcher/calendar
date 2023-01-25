@@ -1,5 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
 import { Theme, WithStyles, createStyles, withStyles } from '@material-ui/core/styles';
+import { addDoc, collection } from 'firebase/firestore';
 
 import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,6 +12,7 @@ import React from 'react';
 import { Reminder } from '../../redux/actions';
 import format from 'date-fns/format';
 import short from 'short-uuid';
+import { useFirebase } from '../../contexts/firebase-context';
 import { useState } from 'react';
 
 const styles = (theme: Theme) =>
@@ -39,12 +41,17 @@ const AddReminder = (props: Props) => {
   const [title, setTitle] = useState('Sample title');
   const [color, setColor] = useState('#d41616');
   const [date, setDate] = useState(format(new Date(), `yyyy-MM-dd'T'HH:mm`));
+  const { db } = useFirebase();
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    
     const reminder = { id: short.generate(), title, color, datetime: new Date(date) };
 
+    await addDoc(collection(db, `arketa`), reminder);
+
     onSave(reminder);
+
     onClose();
   }
 

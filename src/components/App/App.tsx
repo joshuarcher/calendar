@@ -2,8 +2,10 @@ import './App.css';
 
 import * as dateFns from 'date-fns';
 
-import React, { Component } from 'react';
+import { FirebaseProvider, useFirebase } from '../../contexts/firebase-context';
+import React, { Component, useEffect } from 'react';
 import { Theme, WithStyles, createStyles, withStyles } from '@material-ui/core/styles';
+import { collection, getDocs } from 'firebase/firestore';
 
 import AddIcon from '@material-ui/icons/Add';
 import AddReminderContainer from '../AddReminder/AddReminderContainer';
@@ -94,27 +96,29 @@ class App extends Component<Props, State> {
     const year = dateFns.getYear(date);
 
     return (
-      <div className={classes.root}>
-        <Paper className={classes.calendar}>
-          <header className={classes.calendarHeader}>
-            <IconButton aria-label='Last Month' onClick={this.prevMonth}>
-              <KeyboardArrowLeftIcon fontSize='large' />
-            </IconButton>
-            <Typography variant='h3'>
-              {month} {year}
-            </Typography>
-            <IconButton aria-label='Next Month' onClick={this.nextMonth}>
-              <KeyboardArrowRightIcon fontSize='large' />
-            </IconButton>
-          </header>
-          <CalendarGrid date={date} />
-          <Fab aria-label='Add' className={classes.fabAdd} onClick={onFabAddClick}>
-            <AddIcon />
-          </Fab>
-        </Paper>
-        <AgendaDayContainer />
-        <AddReminderContainer />
-      </div>
+      <FirebaseProvider appName='arketa'>
+        <div className={classes.root}>
+          <Paper className={classes.calendar}>
+            <header className={classes.calendarHeader}>
+              <IconButton aria-label='Last Month' onClick={this.prevMonth}>
+                <KeyboardArrowLeftIcon fontSize='large' />
+              </IconButton>
+              <Typography variant='h3'>
+                {month} {year}
+              </Typography>
+              <IconButton aria-label='Next Month' onClick={this.nextMonth}>
+                <KeyboardArrowRightIcon fontSize='large' />
+              </IconButton>
+            </header>
+            <CalendarGrid date={date} />
+            <Fab aria-label='Add' className={classes.fabAdd} onClick={onFabAddClick}>
+              <AddIcon />
+            </Fab>
+          </Paper>
+          <AgendaDayContainer />
+          <AddReminderContainer />
+        </div>
+      </FirebaseProvider>
     );
   }
 }
