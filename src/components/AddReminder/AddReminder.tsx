@@ -94,7 +94,6 @@ const AddReminder = (props: Props) => {
                 });
 
                 Notiflix.Notify.success('Reminder created');
-
             }}
           >
             {({
