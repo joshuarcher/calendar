@@ -12,13 +12,16 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.7",
     "date-fns": "^2.0.0-alpha.27",
+    "formik": "^2.2.9",
     "material-ui-pickers": "^2.2.4",
+    "notiflix": "^3.2.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^6.0.1",
     "react-scripts": "3.4.0",
     "redux": "^4.0.1",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
