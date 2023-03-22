@@ -24,7 +24,7 @@ const styles = (theme: Theme) =>
 interface Props extends WithStyles<typeof styles> {
   date: Date;
 }
-
+// exports both week names row and month date boxes in one component
 const CalendarGrid = (props: Props) => {
   const { classes, date } = props;
   const calendarCells = getMonthCells(date);

@@ -41,7 +41,8 @@ interface Props extends WithStyles<typeof styles> {
   time?: String;
   // onDayClick: (dateObj: DateObj) => void;
 }
-
+// this will display the items of the agenda and should provide any aditional information.
+// this is different from the reminder item as it may have different styles
 const AgendaItem = (props: Props) => {
   const { classes, title, time } = props;
   return (

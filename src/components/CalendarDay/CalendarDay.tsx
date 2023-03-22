@@ -95,12 +95,14 @@ const CalendarDay = (props: Props) => {
   const onMouseOver = () => setFocused(true);
   const onMouseOut = () => setFocused(false);
 
-  const EVENTS =
-    events &&
-    events.length > 0 &&
-    events.map((event) => {
-      return <ReminderItem title={event.title} />;
-    });
+  // attempting to get the events passed down from the redux store.
+  // If the store has an event that matches this date then we should create a reminder item to display in the calendar day box.
+  // const EVENTS =
+  //   events &&
+  //   events.length > 0 &&
+  //   events.map((event) => {
+  //     return <ReminderItem title={event.title} />;
+  //   });
 
   return (
     <div
@@ -114,7 +116,7 @@ const CalendarDay = (props: Props) => {
       }
     >
       <Avatar className={avatarClass}>{getDate(dateObj.date)}</Avatar>
-      <div className={classes.remindersContainer}>{EVENTS}</div>
+      <div className={classes.remindersContainer}></div>
     </div>
   );
 };

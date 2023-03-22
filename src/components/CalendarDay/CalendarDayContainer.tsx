@@ -15,7 +15,8 @@ interface DateObj {
 const mapStateToProps = (state: State, ownProps: Props) => {
   return { ...state, ...ownProps };
 };
-
+// this is the container that supports props for the calendar day component. 
+// TODO: we need to check if there is an event on the matching calendar day and toggle which modal should open.
 const mapDispatchToProps = (dispatch: any) => {
   return {
     onDayClick: (dateObj: DateObj) => {

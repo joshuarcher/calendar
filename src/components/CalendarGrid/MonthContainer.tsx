@@ -25,7 +25,7 @@ interface Props extends WithStyles<typeof styles> {
   }[];
   date: Date;
 }
-
+// create the month container with the dates of the month in correct format
 const MonthContainer = (props: Props) => (
   <div className={props.classes.monthContainer}>
     {props.calendarCells.map((dateObj, i) => (

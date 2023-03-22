@@ -21,6 +21,8 @@ const styles = (theme: Theme) =>
 
 interface Props extends WithStyles<typeof styles> {}
 
+
+// creates the row of each of the days of the week
 const DaysRow = (props: Props) => (
   <div className={props.classes.daysRow}>
     {daysArr.map((day, i) => (

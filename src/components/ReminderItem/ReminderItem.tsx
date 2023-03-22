@@ -51,10 +51,12 @@ const ReminderItem = (props: Props) => {
     <Button onClick={(e) => eventClicked()}>
       <Typography variant="button">
         <div className={classes.reminderItem}>
+          {/* Display the title and color of the event */}
           <div className={classes.title}>
             <span className={classes.calColor}></span>
             {title}
           </div>
+          {/* This will display the time of the event in the users time zone */}
           <span>{time || "All Day"}</span>
         </div>
       </Typography>

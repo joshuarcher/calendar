@@ -43,6 +43,8 @@ interface Props extends WithStyles<typeof styles> {
   onClose: () => void;
 }
 
+
+
 const AgendaDay = (props: Props) => {
   const { classes, agendaStatus, onClose } = props;
   const dateTitle = agendaStatus.date
@@ -70,6 +72,8 @@ const AgendaDay = (props: Props) => {
       <Divider light />
       <DialogContent className={classes.remindersContainer}>
         <Typography variant="h6">Agenda</Typography>
+        {/* Display Agenda Items Here */}
+        {/* TODO: This should get the same events that were passed to the day container and list them in correct time order for each event/reminder */}
         <AgendaItem title="Example" />
         <AgendaItem title="Example 2" />
         <AgendaItem title="Example 3" />

@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch: any) => {
     },
   };
 };
-
+// this is the old way of using redux. 
 const AgendaDayContainer = connect(
   mapStateToProps,
   mapDispatchToProps
