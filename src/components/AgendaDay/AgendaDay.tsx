@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core/styles";
 
 import * as dateFns from "date-fns";
+import AgendaItem from "../AgendaItem/AgendaItem";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -68,7 +69,10 @@ const AgendaDay = (props: Props) => {
       </DialogTitle>
       <Divider light />
       <DialogContent className={classes.remindersContainer}>
-        <Typography>Use this space to list the reminders.</Typography>
+        <Typography variant="h6">Agenda</Typography>
+        <AgendaItem title="Example" />
+        <AgendaItem title="Example 2" />
+        <AgendaItem title="Example 3" />
       </DialogContent>
     </Dialog>
   );

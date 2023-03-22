@@ -1,10 +1,12 @@
 import { connect } from "react-redux";
 import CalendarDay from "./CalendarDay";
-import { openAgenda } from "../../redux/actions";
+import { EventItem, openAgenda } from "../../redux/actions";
 
 interface Props {}
 
-interface State {}
+interface State {
+  events: EventItem[];
+}
 
 interface DateObj {
   date: Date;

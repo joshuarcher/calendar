@@ -1,0 +1,23 @@
+{
+  "reminders": [
+    {
+      "title": "Reminder 1",
+      "datetime": ""
+    },
+    {
+      "title": "Reminder 2",
+      "datetime": ""
+    },
+    {
+      "title": "Reminder 3",
+      "datetime": ""
+    },
+    {
+      "title": "abcdefghijklmnopqrstuvwxyz12345", // 31 chars should be invalid 
+      "datetime": "",
+      "remindBefore": [
+        ""
+      ]
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import {
   CLOSE_AGENDA,
   OPEN_ADD_REMINDER,
   CLOSE_ADD_REMINDER,
+  ADD_EVENT,
 } from "./actions";
 
 const initialAgendaState = {
@@ -13,6 +14,11 @@ const initialAgendaState = {
 
 const initialAddReminderState = {
   isOpen: false,
+};
+
+const initialAddEventState = {
+  title: "untitled",
+  date: new Date(),
 };
 
 function agendaStatus(state = initialAgendaState, action: any) {
@@ -47,9 +53,22 @@ function addReminderStatus(state = initialAddReminderState, action: any) {
   }
 }
 
+function addEvent(state = initialAddEventState, action: any) {
+  switch (action.type) {
+    case ADD_EVENT:
+      return {
+        title: state.title,
+        date: state.date,
+      };
+    default:
+      return state;
+  }
+}
+
 const calendarApp = combineReducers({
   agendaStatus,
   addReminderStatus,
+  addEvent,
 });
 
 export default calendarApp;

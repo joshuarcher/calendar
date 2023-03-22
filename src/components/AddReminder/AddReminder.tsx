@@ -12,6 +12,7 @@ import {
   createStyles,
   Theme,
 } from "@material-ui/core/styles";
+import { Button, FormControl, FormLabel, Grid, Input } from "@material-ui/core";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -56,9 +57,32 @@ const AddReminder = (props: Props) => {
       </DialogTitle>
       <Divider light />
       <DialogContent className={classes.addReminderFormContainer}>
-        <Typography>
-          Use this space to create the UI to add a reminder to the calendar.
-        </Typography>
+        <Typography>Add Your Reminder Here</Typography>
+        <Grid container>
+          <form>
+            <Grid item>
+              <FormControl>
+                <FormLabel>Title</FormLabel>
+                <Input />
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <FormControl>
+                <FormLabel>Date</FormLabel>
+                <Input type="date" />
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <FormControl>
+                <FormLabel>Time</FormLabel>
+                <Input type="time" />
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <Button type="submit">Create Reminder</Button>
+            </Grid>
+          </form>
+        </Grid>
       </DialogContent>
     </Dialog>
   );

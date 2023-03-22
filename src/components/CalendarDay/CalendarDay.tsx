@@ -8,6 +8,8 @@ import {
   createStyles,
 } from "@material-ui/core/styles";
 import { isSameMonth, isSameDay, getDate } from "date-fns";
+import ReminderItem from "../ReminderItem/ReminderItem";
+import { EventItem } from "../../redux/actions";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -70,11 +72,14 @@ interface DateObj {
 interface Props extends WithStyles<typeof styles> {
   calendarDate: Date;
   dateObj: DateObj;
+  events: EventItem[];
   onDayClick: (dateObj: DateObj) => void;
 }
 
 const CalendarDay = (props: Props) => {
-  const { classes, dateObj, calendarDate, onDayClick } = props;
+  // we need to pass the events down to this calendar day component and then render through them in a loop
+
+  const { classes, dateObj, calendarDate, onDayClick, events } = props;
   const [focused, setFocused] = useState(false);
 
   const isToday = isSameDay(dateObj.date, new Date());
@@ -90,6 +95,13 @@ const CalendarDay = (props: Props) => {
   const onMouseOver = () => setFocused(true);
   const onMouseOut = () => setFocused(false);
 
+  const EVENTS =
+    events &&
+    events.length > 0 &&
+    events.map((event) => {
+      return <ReminderItem title={event.title} />;
+    });
+
   return (
     <div
       onMouseOver={onMouseOver}
@@ -102,9 +114,7 @@ const CalendarDay = (props: Props) => {
       }
     >
       <Avatar className={avatarClass}>{getDate(dateObj.date)}</Avatar>
-      <div className={classes.remindersContainer}>
-        {/* reminders go here */}
-      </div>
+      <div className={classes.remindersContainer}>{EVENTS}</div>
     </div>
   );
 };
