@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import CalendarDay from "./CalendarDay";
-import { EventItem, openAgenda } from "../../redux/actions";
+import { EventItem, openAgenda, openAddReminder } from "../../redux/actions";
 
 interface Props {}
 
@@ -19,7 +19,12 @@ const mapStateToProps = (state: State, ownProps: Props) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     onDayClick: (dateObj: DateObj) => {
-      dispatch(openAgenda(dateObj));
+      // could check here if items are on this day else open the create event modal.
+      if (false) {
+        dispatch(openAgenda(dateObj));
+      } else {
+        dispatch(openAddReminder(dateObj));
+      }
     },
   };
 };
