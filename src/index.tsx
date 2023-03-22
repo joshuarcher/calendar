@@ -6,6 +6,7 @@ import { createStore } from "redux";
 import calendarApp from "./redux/reducers";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
+import { createContext, useContext } from "react";
 
 declare global {
   interface Window {
@@ -18,9 +19,30 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
+const DataContext = createContext(null);
+
+export const useAppContext = () => useContext(DataContext);
+
+const AppContext = ({ children }) => {
+  return (
+    <DataContext.Provider
+      value={{
+        events: {
+          "20230322": [{ title: "EXAMPLE", date: new Date(), color: "blue" }],
+          "20230324": [{ title: "Friday", date: "", color: "green" }],
+        },
+      }}
+    >
+      {children}
+    </DataContext.Provider>
+  );
+};
+
 ReactDOM.render(
   <Provider store={store as any}>
-    <AppContainer />
+    <AppContext>
+      <AppContainer />
+    </AppContext>
   </Provider>,
   document.getElementById("root")
 );

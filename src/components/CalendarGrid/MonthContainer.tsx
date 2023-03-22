@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core/styles";
 import CalendarDayContainer from "../CalendarDay/CalendarDayContainer";
 
+
 const styles = (theme: Theme) =>
   createStyles({
     monthContainer: {

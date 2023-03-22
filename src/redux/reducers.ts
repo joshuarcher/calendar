@@ -5,6 +5,7 @@ import {
   OPEN_ADD_REMINDER,
   CLOSE_ADD_REMINDER,
   ADD_EVENT,
+  DELETE_EVENT,
 } from "./actions";
 
 const initialAgendaState = {
@@ -20,6 +21,8 @@ const initialAddEventState = {
   title: "untitled",
   date: new Date(),
 };
+
+const initialDeleteEventState = {};
 
 function agendaStatus(state = initialAgendaState, action: any) {
   switch (action.type) {
@@ -65,10 +68,20 @@ function addEvent(state = initialAddEventState, action: any) {
   }
 }
 
+function deleteEvent(state = initialDeleteEventState, action: any) {
+  switch (action.type) {
+    case DELETE_EVENT:
+      return "Event Deleted";
+    default:
+      return state;
+  }
+}
+
 const calendarApp = combineReducers({
   agendaStatus,
   addReminderStatus,
   addEvent,
+  deleteEvent,
 });
 
 export default calendarApp;

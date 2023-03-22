@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import deepPurple from "@material-ui/core/colors/deepPurple";
+import { format, compareAsc } from "date-fns";
 import {
   WithStyles,
   withStyles,
@@ -8,8 +9,9 @@ import {
   createStyles,
 } from "@material-ui/core/styles";
 import { isSameMonth, isSameDay, getDate } from "date-fns";
-import ReminderItem from "../ReminderItem/ReminderItem";
 import { EventItem } from "../../redux/actions";
+import { useAppContext } from "../..";
+import ReminderItem from "../ReminderItem/ReminderItem";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -79,7 +81,7 @@ interface Props extends WithStyles<typeof styles> {
 const CalendarDay = (props: Props) => {
   // we need to pass the events down to this calendar day component and then render through them in a loop
 
-  const { classes, dateObj, calendarDate, onDayClick, events } = props;
+  const { classes, dateObj, calendarDate, onDayClick } = props;
   const [focused, setFocused] = useState(false);
 
   const isToday = isSameDay(dateObj.date, new Date());
@@ -97,12 +99,26 @@ const CalendarDay = (props: Props) => {
 
   // attempting to get the events passed down from the redux store.
   // If the store has an event that matches this date then we should create a reminder item to display in the calendar day box.
-  // const EVENTS =
-  //   events &&
-  //   events.length > 0 &&
-  //   events.map((event) => {
-  //     return <ReminderItem title={event.title} />;
-  //   });
+  // const EVENTS = { calId: {
+  //   events:
+  //   {
+  //     20230322: [
+
+  //     ]
+  //   }
+  // }}
+
+  const appContext = useAppContext();
+
+  const { events } = appContext;
+
+  const eventDayUTC = format(dateObj.date, "yyyyMMdd");
+
+  const todaysEvents = events[eventDayUTC]
+
+  // console.log(eventDayUTC);
+  console.log(todaysEvents);
+
 
   return (
     <div
@@ -116,7 +132,11 @@ const CalendarDay = (props: Props) => {
       }
     >
       <Avatar className={avatarClass}>{getDate(dateObj.date)}</Avatar>
-      <div className={classes.remindersContainer}></div>
+      <div className={classes.remindersContainer}>
+        {todaysEvents && todaysEvents.length> 0 && todaysEvents.map((event) => (
+          <ReminderItem title={event.title} />
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 ## Calendar ToDo
-- [ ] Display exisiting reminders in the calendar 
+- [x] Display exisiting reminders in the calendar 
   - this is related to the redux store which I am currently struggling to remember
 - [ ] Ability To Add New Reminders
   - [x] Added form to new reminder modal
@@ -15,7 +15,8 @@
 - [x] Clicking on a calendar cell, opens new reminder window
   - [ ] replace the agenda modal for dates that do have reminders
 - [ ] Overflow of multiple reminders should be handled to not obstruct other calendar dates
-
+- [ ] Add checkbox for all day event
+   - [ ] Should all day events be top or bottom of sorted list  
 ***
 ### Bonus Items
 - [ ] Connect Reminders to backend (firebase)
