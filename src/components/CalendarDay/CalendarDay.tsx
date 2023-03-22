@@ -114,11 +114,14 @@ const CalendarDay = (props: Props) => {
 
   const eventDayUTC = format(dateObj.date, "yyyyMMdd");
 
-  const todaysEvents = events[eventDayUTC]
+  const todaysEvents = events[eventDayUTC] || [];
+
+  todaysEvents.sort((eventA, eventB) => {
+    return compareAsc(eventA.date, eventB.date);
+  });
 
   // console.log(eventDayUTC);
-  console.log(todaysEvents);
-
+  // console.log(todaysEvents);
 
   return (
     <div
@@ -133,8 +136,8 @@ const CalendarDay = (props: Props) => {
     >
       <Avatar className={avatarClass}>{getDate(dateObj.date)}</Avatar>
       <div className={classes.remindersContainer}>
-        {todaysEvents && todaysEvents.length> 0 && todaysEvents.map((event) => (
-          <ReminderItem title={event.title} />
+        {todaysEvents.map((event) => (
+          <ReminderItem {...event} />
         ))}
       </div>
     </div>

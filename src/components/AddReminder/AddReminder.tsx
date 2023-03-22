@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -38,6 +38,17 @@ interface Props extends WithStyles<typeof styles> {
 const AddReminder = (props: Props) => {
   const { classes, isOpen, onClose } = props;
 
+  const [form, updateFomr] = useState({});
+
+  // e.target.id
+  // pass to addEvent
+  // add event resets the state and adds it to context and displays
+
+  const doTheThing = (e) => {
+    e.preventDefault()
+    console.log("Did The Thing");
+  };
+
   return (
     <Dialog
       open={isOpen}
@@ -60,7 +71,7 @@ const AddReminder = (props: Props) => {
       <DialogContent className={classes.addReminderFormContainer}>
         <Typography>Add Your Reminder Here</Typography>
         <Grid container>
-          <form>
+          <form onSubmit={(e) => doTheThing(e)}>
             <Grid item>
               <FormControl>
                 <FormLabel>Title</FormLabel>

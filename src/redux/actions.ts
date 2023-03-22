@@ -13,6 +13,7 @@ interface DateObj {
 export interface EventItem {
   title: String;
   date: Date;
+  color: String;
 }
 
 // action creators

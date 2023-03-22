@@ -9,8 +9,8 @@
       - [?] Is this inclusive of spaces? 
 - [x] User can select a color when creating a reminder
   - [?] Is this a limited selection?
-- [ ] reminder color displays correctly with calendar item   
-- [ ] Reminders are displayed in correct time order 
+- [X ] reminder color displays correctly with calendar item   
+- [x] Reminders are displayed in correct time order 
   - [?] Does DateFNS give this information in correct order if not we can do this with a universal date time. 
 - [x] Clicking on a calendar cell, opens new reminder window
   - [ ] replace the agenda modal for dates that do have reminders

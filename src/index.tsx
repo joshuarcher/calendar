@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import AppContainer from "./components/App/AppContainer";
 import { Provider } from "react-redux";
@@ -7,6 +7,8 @@ import calendarApp from "./redux/reducers";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
 import { createContext, useContext } from "react";
+import { addHours, format } from "date-fns";
+import { EventItem } from "./redux/actions";
 
 declare global {
   interface Window {
@@ -24,13 +26,30 @@ const DataContext = createContext(null);
 export const useAppContext = () => useContext(DataContext);
 
 const AppContext = ({ children }) => {
+  const [events, setEvents] = useState({});
+
+  const addEvent = (event: EventItem) => {
+    if (event.title.length > 30) {
+      throw new Error("Implement Correct login here");
+    }
+
+    // check if key of date exists yyyyMMdd  format
+    const key = format(event.date, "yyyyMMdd");
+    // if true add to array
+    let newEvents = { ...events };
+    if (events[key]) {
+      newEvents[key].push(event);
+    } else {
+      newEvents[key] = [event];
+    }
+    setEvents(newEvents);
+  };
+
   return (
     <DataContext.Provider
       value={{
-        events: {
-          "20230322": [{ title: "EXAMPLE", date: new Date(), color: "blue" }],
-          "20230324": [{ title: "Friday", date: "", color: "green" }],
-        },
+        addEvent: addEvent,
+        events,
       }}
     >
       {children}

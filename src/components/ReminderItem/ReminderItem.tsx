@@ -26,7 +26,7 @@ const styles = (theme: Theme) =>
     calColor: {
       height: ".8em",
       width: ".8em",
-      background: "red",
+      // background: "red",
       marginRight: ".5em",
       borderRadius: "100px",
     },
@@ -37,13 +37,14 @@ interface DateObj {
 }
 
 interface Props extends WithStyles<typeof styles> {
-  title: String;
-  time?: String;
+  title: string;
+  time?: string;
+  color: string; // TODO: Change to ENUM
   // onDayClick: (dateObj: DateObj) => void;
 }
 
 const ReminderItem = (props: Props) => {
-  const { classes, title, time } = props;
+  const { classes, title, time, color } = props;
   const eventClicked = () => {
     console.log("eventClicked");
   };
@@ -53,7 +54,10 @@ const ReminderItem = (props: Props) => {
         <div className={classes.reminderItem}>
           {/* Display the title and color of the event */}
           <div className={classes.title}>
-            <span className={classes.calColor}></span>
+            <span
+              className={classes.calColor}
+              style={{ backgroundColor: color }}
+            ></span>
             {title}
           </div>
           {/* This will display the time of the event in the users time zone */}
