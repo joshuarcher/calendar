@@ -12,7 +12,16 @@ import {
   createStyles,
   Theme,
 } from "@material-ui/core/styles";
-import { Button, FormControl, FormLabel, Grid, Input } from "@material-ui/core";
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  Input,
+  Radio,
+  RadioGroup,
+} from "@material-ui/core";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -28,6 +37,73 @@ const styles = (theme: Theme) =>
       top: "10px",
     },
   });
+
+const ColorSelect = () => {
+  return (
+    <Grid item>
+      <FormControl>
+        <FormLabel id="demo-radio-buttons-group-label">Color</FormLabel>
+        <RadioGroup
+          aria-labelledby="demo-radio-buttons-group-label"
+          defaultValue="red"
+          name="radio-buttons-group"
+        >
+          <FormControlLabel
+            value="red"
+            control={<Radio />}
+            label={
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div
+                  style={{
+                    height: "1em",
+                    width: "1em",
+                    background: "red",
+                    marginRight: ".5em",
+                  }}
+                />
+                <span>Red</span>
+              </div>
+            }
+          />
+          <FormControlLabel
+            value="orange"
+            control={<Radio />}
+            label={
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div
+                  style={{
+                    height: "1em",
+                    width: "1em",
+                    background: "orange",
+                    marginRight: ".5em",
+                  }}
+                />
+                <span>Orange</span>
+              </div>
+            }
+          />
+          <FormControlLabel
+            value="yellow"
+            control={<Radio />}
+            label={
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div
+                  style={{
+                    height: "1em",
+                    width: "1em",
+                    background: "yellow",
+                    marginRight: ".5em",
+                  }}
+                />
+                <span>Yellow</span>
+              </div>
+            }
+          />
+        </RadioGroup>
+      </FormControl>
+    </Grid>
+  );
+};
 
 interface Props extends WithStyles<typeof styles> {
   isOpen: boolean;
@@ -78,6 +154,7 @@ const AddReminder = (props: Props) => {
                 <Input type="time" />
               </FormControl>
             </Grid>
+            <ColorSelect />
             <Grid item>
               <Button type="submit">Create Reminder</Button>
             </Grid>

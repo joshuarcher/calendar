@@ -1,5 +1,6 @@
 ## Calendar ToDo
 - [ ] Ability To Add New Reminders
+  - [x] Added form to new reminder modal
 - [ ] Reminders can be max of 30 characters
   - [?] Is this inclusive of spaces? 
 - [ ] User can select a color when creating a reminder
