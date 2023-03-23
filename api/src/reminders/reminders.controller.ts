@@ -8,8 +8,8 @@ import {
   Body,
   Query,
 } from '@nestjs/common';
-import { STATUS_MESSAGE } from 'utils/statusMessages';
-import HTTP_STATUS_CODES from 'utils/statusCodes';
+import { CreateReminderDto } from './dto/create-reminder.dto';
+import { UpdateReminderDto } from './dto/update-reminder.dto';
 import { RemindersService } from './reminders.service';
 
 @Controller('reminders')
@@ -28,14 +28,17 @@ export class RemindersController {
   }
 
   @Post()
-  create(@Body() body) {
+  create(@Body() createReminderDto: CreateReminderDto) {
     // when creating the service for the create method we should do server side validation
-    return this.remindersService.create(body);
+    return this.remindersService.create(createReminderDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body) {
-    return this.remindersService.update(id, body);
+  update(
+    @Param('id') id: string,
+    @Body() updateReminderDto: UpdateReminderDto,
+  ) {
+    return this.remindersService.update(id, updateReminderDto);
   }
 
   @Delete(':id')

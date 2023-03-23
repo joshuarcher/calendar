@@ -1,4 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import HTTP_STATUS_CODES from 'utils/statusCodes';
 import { STATUS_MESSAGE } from 'utils/statusMessages';
 import { Reminder } from './entities/reminder.entity';
@@ -21,10 +27,18 @@ export class RemindersService {
   }
 
   findOne(id) {
+    if (!id || id === '')
+      throw new BadRequestException('Please select a reminder to display.');
+
+    const reminder = this.reminders.find((reminder) => reminder.id === id);
+    if (!reminder) {
+      throw new NotFoundException(`Reminder  ${id} not found.`);
+    }
+
     return {
       status: STATUS_MESSAGE.READ,
       statusCode: HTTP_STATUS_CODES.OK,
-      body: `Found Reminder with id ${id}`,
+      body: reminder,
     };
   }
 
