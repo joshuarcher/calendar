@@ -1,5 +1,5 @@
 import { Grid, FormControl, FormLabel, Input, Button } from "@material-ui/core";
-import React, { FormEvent, useState } from "react";
+import React, { useState } from "react";
 import ColorSelect from "./ColorSelector";
 
 export default function ReminderForm() {

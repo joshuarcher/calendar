@@ -1,50 +1,45 @@
-import { Controller, Get, Post, Param, Patch, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  Patch,
+  Delete,
+  Body,
+  Query,
+} from '@nestjs/common';
 import { STATUS_MESSAGE } from 'utils/statusMessages';
 import HTTP_STATUS_CODES from 'utils/statusCodes';
+import { RemindersService } from './reminders.service';
 
 @Controller('reminders')
 export class RemindersController {
+  constructor(private readonly remindersService: RemindersService) {}
+
   @Get()
-  findAll() {
-    return {
-      status: STATUS_MESSAGE.READ,
-      statusCode: HTTP_STATUS_CODES.OK,
-      body: 'All Reminders',
-    };
+  findAll(@Query() paginationQuery) {
+    // const { limit, offset } = paginationQuery;
+    // TODO: set default offset and limit
+    return this.remindersService.findAll();
   }
   @Get(':id')
-  findOne(@Param() params) {
-    return {
-      status: STATUS_MESSAGE.READ,
-      statusCode: HTTP_STATUS_CODES.OK,
-      body: `Found Reminder with id ${params.id}`,
-    };
+  findOne(@Param('id') id: string) {
+    return this.remindersService.findOne(id);
   }
 
   @Post()
-  create() {
-    return {
-      status: STATUS_MESSAGE.CREATED,
-      statusCode: HTTP_STATUS_CODES.CREATED,
-      body: `created reminder with new id`,
-    };
+  create(@Body() body) {
+    // when creating the service for the create method we should do server side validation
+    return this.remindersService.create(body);
   }
 
   @Patch(':id')
-  update(@Param() params) {
-    return {
-      status: STATUS_MESSAGE.UPDATED,
-      statusCode: HTTP_STATUS_CODES.OK,
-      body: `updated reminder with ${params.id}`,
-    };
+  update(@Param('id') id: string, @Body() body) {
+    return this.remindersService.update(id, body);
   }
 
   @Delete(':id')
-  delete(@Param() params) {
-    return {
-      status: STATUS_MESSAGE.DELETED,
-      statusCode: HTTP_STATUS_CODES.OK,
-      body: `deleted reminder with ${params.id}`,
-    };
+  delete(@Param('id') id: string) {
+    return this.remindersService.delete(id);
   }
 }
