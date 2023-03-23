@@ -7,7 +7,7 @@ import calendarApp from "./redux/reducers";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
 import { createContext, useContext } from "react";
-import { addHours, format } from "date-fns";
+import { format } from "date-fns";
 import { EventItem } from "./redux/actions";
 
 declare global {
