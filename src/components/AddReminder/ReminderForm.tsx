@@ -12,6 +12,7 @@ export default function ReminderForm() {
   });
 
   function handleChange(e) {
+    e.preventDefault();
     const name = e.target.name;
     const value = e.target.value;
 
@@ -20,9 +21,10 @@ export default function ReminderForm() {
     console.log(formData);
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
     // do client side validation
-    
+
     // handle form submission to db
 
     // if db 200 close form
@@ -31,7 +33,7 @@ export default function ReminderForm() {
   }
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Grid container spacing={8}>
         <Grid item xs={6}>
           <FormControl>
@@ -54,6 +56,7 @@ export default function ReminderForm() {
             />
           </FormControl>
         </Grid>
+        {/* Conditionally display time if AllDay is unchecked */}
         <Grid item xs={6}>
           <FormControl>
             <FormLabel>Time</FormLabel>
