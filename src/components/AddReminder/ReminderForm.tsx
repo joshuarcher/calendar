@@ -1,14 +1,34 @@
-import { Grid, FormControl, FormLabel, Input, Button } from "@material-ui/core";
+import {
+  Grid,
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  FormControlLabel,
+  Switch,
+} from "@material-ui/core";
 import React, { useState } from "react";
+import Alert from "../Alert";
 import ColorSelect from "./ColorSelector";
 
 export default function ReminderForm() {
+  const [allDay, setAllDay] = useState(false);
   const [formData, updateFormData] = useState({
     title: "",
     date: "",
-    time: "",
+    startTime: "",
+    endTime: "",
     color: "red",
     notes: "",
+  });
+
+  const [hasErrors, setErrors] = useState({
+    title: null,
+    date: null,
+    startTime: null,
+    endTime: null,
+    color: null,
+    notes: null,
   });
 
   function handleChange(e) {
@@ -25,8 +45,8 @@ export default function ReminderForm() {
     await fetch("http://localhost:8000/reminders", {
       method: "POST",
       body: JSON.stringify({
-        title: "Test",
-        date: new Date().toDateString(),
+        title: formData.title,
+        date: formData.date,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -43,6 +63,21 @@ export default function ReminderForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (!formData.title) {
+      return setErrors({ ...hasErrors, title: "Please enter a title." });
+    } else {
+      setErrors({ ...hasErrors, title: null });
+    }
+    if (formData.title.length > 30) {
+      return setErrors({
+        ...hasErrors,
+        title: "Event title can be no more than 30 characters",
+      });
+    }
+    if (!formData.date) {
+      return;
+    }
     // handle form submission to db
     addReminder();
   }
@@ -58,6 +93,7 @@ export default function ReminderForm() {
               value={formData.title}
               onChange={handleChange}
             />
+            {hasErrors.title && <Alert message={hasErrors.title} />}
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -71,18 +107,39 @@ export default function ReminderForm() {
             />
           </FormControl>
         </Grid>
-        {/* Conditionally display time if AllDay is unchecked */}
         <Grid item xs={6}>
-          <FormControl>
-            <FormLabel>Time</FormLabel>
-            <Input
-              type="time"
-              name="time"
-              value={formData.time}
-              onChange={handleChange}
-            />
-          </FormControl>
+          <FormControlLabel
+            control={
+              <Switch checked={allDay} onChange={() => setAllDay(!allDay)} />
+            }
+            label={"All Day"}
+          />
         </Grid>
+        {/* Conditionally display time if AllDay is unchecked */}
+        {!allDay && (
+          <>
+            <Grid item xs={6}>
+              <FormControl>
+                <FormLabel>Start Time</FormLabel>
+                <Input
+                  type="time"
+                  name="time"
+                  value={formData.startTime}
+                  onChange={handleChange}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel>End Time</FormLabel>
+                <Input
+                  type="time"
+                  name="time"
+                  value={formData.endTime}
+                  onChange={handleChange}
+                />
+              </FormControl>
+            </Grid>
+          </>
+        )}
         <Grid item xs={6}>
           <FormControl>
             <FormLabel>Notes</FormLabel>
@@ -94,9 +151,9 @@ export default function ReminderForm() {
             />
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        {/* <Grid item xs={6}>
           <ColorSelect value={formData.color} onChange={handleChange} />
-        </Grid>
+        </Grid> */}
         <Grid item xs={6}>
           <Button type="submit">Create Reminder</Button>
         </Grid>
