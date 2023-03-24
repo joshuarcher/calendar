@@ -92,7 +92,7 @@ const AgendaDay = (props: Props) => {
         {/* Display Agenda Items Here */}
         {/* TODO: This should get the same events that were passed to the day container and list them in correct time order for each event/reminder */}
         {todaysEvents.map((event, i) => (
-          <AgendaItem key={i} title={event.title} />
+          <AgendaItem key={i} event={event} />
         ))}
       </DialogContent>
     </Dialog>

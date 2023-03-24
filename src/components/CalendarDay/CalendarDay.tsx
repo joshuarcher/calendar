@@ -114,20 +114,9 @@ const CalendarDay = (props: Props) => {
 
   const { events } = appContext;
 
-  const reminders = {};
-
-  events.map((event) => {
-    const key = format(new Date(event.date), "yyyyMMdd");
-    // check if key exists
-    if (reminders[key]) {
-      return (reminders[key] = [...reminders[key], event]);
-    }
-    return (reminders[key] = [event]);
-  });
-
   const eventDayKey = format(dateObj.date, "yyyyMMdd");
 
-  const todaysEvents = reminders[eventDayKey] || [];
+  const todaysEvents = events[eventDayKey] || [];
   const displayAgenda = todaysEvents.length > 0;
 
   todaysEvents.sort((eventA, eventB) => {

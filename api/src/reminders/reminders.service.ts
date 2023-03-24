@@ -15,24 +15,24 @@ export class RemindersService {
   async findAll() {
     // return this.reminderModel.find().exec();
     const allReminders: Reminder[] = await this.reminderModel.find().exec();
-    return allReminders;
+    // return allReminders;
 
     // Not sure if we would rather format it as an object on the server side or client side.
     // My preference is to generally run things server side since we have
     // better cache control and performance
 
-    // const reminders = {};
-    // allReminders.map((newReminder) => {
-    //   const key = format(new Date(newReminder.date), 'yyyyMMdd');
-    //   console.log(key);
-    //   // check if key exists
-    //   if (reminders[key]) {
-    //     return (reminders[key] = [...reminders[key], newReminder]);
-    //   }
-    //   return (reminders[key] = [newReminder]);
-    // });
+    const reminders = {};
+    allReminders.map((newReminder) => {
+      const key = format(new Date(newReminder.date), 'yyyyMMdd');
+      console.log(key);
+      // check if key exists
+      if (reminders[key]) {
+        return (reminders[key] = [...reminders[key], newReminder]);
+      }
+      return (reminders[key] = [newReminder]);
+    });
 
-    // return reminders;
+    return reminders;
   }
 
   async findOne(id: string) {

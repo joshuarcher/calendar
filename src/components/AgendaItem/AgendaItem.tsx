@@ -37,19 +37,26 @@ interface DateObj {
 }
 
 interface Props extends WithStyles<typeof styles> {
-  title: String;
-  time?: String;
+  event: {
+    title: string;
+    time?: string;
+    color: string;
+  };
   // onDayClick: (dateObj: DateObj) => void;
 }
 // this will display the items of the agenda and should provide any aditional information.
 // this is different from the reminder item as it may have different styles
 const AgendaItem = (props: Props) => {
-  const { classes, title, time } = props;
+  const { classes, event } = props;
+  const { title, time, color } = event;
   return (
     <Typography variant="button">
       <div className={classes.reminderItem}>
         <div className={classes.title}>
-          <span className={classes.calColor}></span>
+          <span
+            className={classes.calColor}
+            style={{ background: color }}
+          ></span>
           {title}
         </div>
         <span>{time || "All Day"}</span>
