@@ -5,6 +5,9 @@ import { Document } from 'mongoose';
 export class Reminder extends Document {
   @Prop()
   title: string;
+
+  @Prop()
+  date: string;
 }
 
 export const ReminderSchema = SchemaFactory.createForClass(Reminder);

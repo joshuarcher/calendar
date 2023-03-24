@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import deepPurple from "@material-ui/core/colors/deepPurple";
-import { format, compareAsc } from "date-fns";
+import { format, compareAsc, parseISO } from "date-fns";
 import {
   WithStyles,
   withStyles,
@@ -117,11 +117,8 @@ const CalendarDay = (props: Props) => {
   const todaysEvents = events[eventDayUTC] || [];
 
   todaysEvents.sort((eventA, eventB) => {
-    return compareAsc(eventA.date, eventB.date);
+    return compareAsc(parseISO(eventA.date), parseISO(eventB.date));
   });
-
-  // console.log(eventDayUTC);
-  // console.log(todaysEvents);
 
   return (
     <div
@@ -136,8 +133,8 @@ const CalendarDay = (props: Props) => {
     >
       <Avatar className={avatarClass}>{getDate(dateObj.date)}</Avatar>
       <div className={classes.remindersContainer}>
-        {todaysEvents.map((event) => (
-          <ReminderItem {...event} />
+        {todaysEvents.map((event, index) => (
+          <ReminderItem {...event} key={index}/>
         ))}
       </div>
     </div>

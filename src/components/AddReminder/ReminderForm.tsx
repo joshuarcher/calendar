@@ -21,15 +21,30 @@ export default function ReminderForm() {
     console.log(formData);
   }
 
+  const addReminder = async () => {
+    await fetch("http://localhost:8000/reminders", {
+      method: "POST",
+      body: JSON.stringify({
+        title: "Test",
+        date: new Date().toDateString(),
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
   function handleSubmit(e) {
     e.preventDefault();
-    // do client side validation
-
     // handle form submission to db
-
-    // if db 200 close form
-
-    // if error report error to user
+    addReminder();
   }
 
   return (

@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { format } from 'date-fns';
 import { Model } from 'mongoose';
 import { CreateReminderDto } from './dto/create-reminder.dto';
 import { UpdateReminderDto } from './dto/update-reminder.dto';
@@ -11,8 +12,26 @@ export class RemindersService {
     @InjectModel(Reminder.name) private readonly reminderModel: Model<Reminder>,
   ) {}
 
-  findAll() {
-    return this.reminderModel.find().exec();
+  async findAll() {
+    // return this.reminderModel.find().exec();
+    const allReminders: Reminder[] = await this.reminderModel.find().exec();
+    // return allReminders;
+
+    // Not sure if we would rather format it as an object on the server side or client side.
+    // My preference is to generally run things server side since we have
+    // better cache control and performance
+
+    const reminders = {};
+    allReminders.map((newReminder) => {
+      const key = format(new Date(newReminder.date), 'yyyyMMdd');
+      // check if key exists
+      if (reminders[key]) {
+        return (reminders[key] = [...reminders[key], newReminder]);
+      }
+      return (reminders[key] = [newReminder]);
+    });
+
+    return reminders;
   }
 
   async findOne(id: string) {
@@ -22,7 +41,8 @@ export class RemindersService {
   }
 
   create(createReminderDto: CreateReminderDto) {
-    const reminder = new this.reminderModel(createReminderDto);
+    const date = new Date();
+    const reminder = new this.reminderModel({ ...createReminderDto, date });
     return reminder.save();
   }
 
@@ -38,7 +58,6 @@ export class RemindersService {
   }
 
   async delete(id: string) {
-    const reminder = await this.findOne(id);
-    return this.reminderModel.deleteOne(reminder);
+    return this.reminderModel.deleteOne({ _id: id });
   }
 }
