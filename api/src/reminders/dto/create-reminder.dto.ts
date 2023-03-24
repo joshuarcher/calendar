@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class CreateReminderDto {
   @IsString()
@@ -6,4 +6,18 @@ export class CreateReminderDto {
 
   @IsString()
   readonly date: string;
+
+  @IsBoolean()
+  readonly allDay: boolean;
+
+  @IsString()
+  @IsOptional()
+  readonly startTime: string;
+
+  @IsString()
+  @IsOptional()
+  readonly endTime: string;
+
+  @IsString()
+  readonly color: string;
 }

@@ -8,7 +8,7 @@ async function bootstrap() {
     new ValidationPipe({
       // this will strip any extra content from the body of the request
       whitelist: true,
-      forbidNonWhitelisted: true,
+      // forbidNonWhitelisted: true, // this blocks any requests that send a non-allowed key:value pair
       transform: true, // this will transform the body of the request to match the DTO we expect
       // transform can impact performance but since this is an example figured it was worth noting
     }),

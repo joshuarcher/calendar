@@ -8,6 +8,18 @@ export class Reminder extends Document {
 
   @Prop()
   date: string;
+
+  @Prop()
+  allDay: boolean;
+
+  @Prop()
+  startTime?: string;
+
+  @Prop()
+  endTime?: string;
+
+  @Prop()
+  color: string;
 }
 
 export const ReminderSchema = SchemaFactory.createForClass(Reminder);

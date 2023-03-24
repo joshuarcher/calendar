@@ -41,8 +41,7 @@ export class RemindersService {
   }
 
   create(createReminderDto: CreateReminderDto) {
-    const date = new Date();
-    const reminder = new this.reminderModel({ ...createReminderDto, date });
+    const reminder = new this.reminderModel({ ...createReminderDto });
     return reminder.save();
   }
 

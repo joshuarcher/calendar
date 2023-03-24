@@ -19,7 +19,7 @@ export default function ReminderForm() {
     startTime: "",
     endTime: "",
     color: "red",
-    notes: "",
+    // notes: "",
   });
 
   const [hasErrors, setErrors] = useState({
@@ -28,7 +28,7 @@ export default function ReminderForm() {
     startTime: null,
     endTime: null,
     color: null,
-    notes: null,
+    // notes: null,
   });
 
   function handleChange(e) {
@@ -45,8 +45,7 @@ export default function ReminderForm() {
     await fetch("http://localhost:8000/reminders", {
       method: "POST",
       body: JSON.stringify({
-        title: formData.title,
-        date: formData.date,
+        ...formData,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -140,7 +139,7 @@ export default function ReminderForm() {
             </Grid>
           </>
         )}
-        <Grid item xs={6}>
+        {/* <Grid item xs={6}>
           <FormControl>
             <FormLabel>Notes</FormLabel>
             <Input
@@ -150,7 +149,7 @@ export default function ReminderForm() {
               onChange={handleChange}
             />
           </FormControl>
-        </Grid>
+        </Grid> */}
         {/* <Grid item xs={6}>
           <ColorSelect value={formData.color} onChange={handleChange} />
         </Grid> */}
