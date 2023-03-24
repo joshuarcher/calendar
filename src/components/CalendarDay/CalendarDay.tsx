@@ -75,7 +75,7 @@ interface Props extends WithStyles<typeof styles> {
   calendarDate: Date;
   dateObj: DateObj;
   events: EventItem[];
-  onDayClick: (dateObj: DateObj) => void;
+  onDayClick: (dateObj: DateObj, displayAgenda: boolean) => void;
 }
 
 const CalendarDay = (props: Props) => {
@@ -108,6 +108,8 @@ const CalendarDay = (props: Props) => {
   //   }
   // }}
 
+  const eventLimit = 1; // the number of events to display in each block
+
   const appContext = useAppContext();
 
   const { events } = appContext;
@@ -115,6 +117,7 @@ const CalendarDay = (props: Props) => {
   const eventDayUTC = format(dateObj.date, "yyyyMMdd");
 
   const todaysEvents = events[eventDayUTC] || [];
+  const displayAgenda = todaysEvents.length > 0;
 
   todaysEvents.sort((eventA, eventB) => {
     return compareAsc(parseISO(eventA.date), parseISO(eventB.date));
@@ -124,7 +127,7 @@ const CalendarDay = (props: Props) => {
     <div
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
-      onClick={() => onDayClick(dateObj)}
+      onClick={() => onDayClick(dateObj, displayAgenda)}
       className={
         isSameMonth(dateObj.date, calendarDate)
           ? classes.dayCell
@@ -133,9 +136,16 @@ const CalendarDay = (props: Props) => {
     >
       <Avatar className={avatarClass}>{getDate(dateObj.date)}</Avatar>
       <div className={classes.remindersContainer}>
-        {todaysEvents.map((event, index) => (
-          <ReminderItem {...event} key={index}/>
-        ))}
+        {todaysEvents
+          .filter((event, index) => index < eventLimit)
+          .map((event, index) => (
+            <ReminderItem {...event} key={index} />
+          ))}
+        {todaysEvents.length > eventLimit && (
+          <div style={{ paddingLeft: ".7em" }}>
+            {todaysEvents.length - eventLimit}+ events
+          </div>
+        )}
       </div>
     </div>
   );
