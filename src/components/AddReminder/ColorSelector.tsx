@@ -19,7 +19,6 @@ const ColorSelect = (value, onChange) => {
         aria-labelledby="demo-radio-buttons-group-label"
         defaultValue="red"
         name="radio-buttons-group"
-        value={value}
         onChange={onChange}
       >
         {/* Can make this a map of available colors to select in the future from ColorUtils.tsx */}

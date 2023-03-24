@@ -61,6 +61,8 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 interface State {
+  data: [];
+  hasError: boolean;
   date: Date;
 }
 
@@ -69,11 +71,13 @@ class App extends Component<Props, State> {
     super(props);
 
     this.state = {
+      data: [],
+      hasError: false,
       date: new Date(),
     };
   }
 
-  compnentDidMount() {}
+  componentDidMount() {}
 
   // arrow functions to skip binding in constructor
   prevMonth = () => {

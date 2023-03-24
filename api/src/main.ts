@@ -13,6 +13,7 @@ async function bootstrap() {
       // transform can impact performance but since this is an example figured it was worth noting
     }),
   );
+  app.enableCors();
   await app.listen(8000);
 }
 bootstrap();

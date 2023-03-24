@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import AppContainer from "./components/App/AppContainer";
 import { Provider } from "react-redux";
@@ -26,7 +26,7 @@ const DataContext = createContext(null);
 export const useAppContext = () => useContext(DataContext);
 
 const AppContext = ({ children }) => {
-  const [events, setEvents] = useState({});
+  const [events, setEvents] = useState([]);
 
   const addEvent = (event: EventItem) => {
     if (event.title.length > 30) {
@@ -44,6 +44,21 @@ const AppContext = ({ children }) => {
     }
     setEvents(newEvents);
   };
+
+  // Best practice would be to make this into its own function rather than placing useEffects throughout without labels.
+  useEffect(() => {
+    // fetch current events from database on first load
+    fetch("http://localhost:8000/reminders", {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setEvents(data);
+      });
+  });
 
   return (
     <DataContext.Provider
