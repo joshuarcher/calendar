@@ -47,4 +47,9 @@ export class RemindersController {
   delete(@Param('id') id: string) {
     return this.remindersService.delete(id);
   }
+
+  @Delete()
+  deleteAll() {
+    return this.remindersService.deleteAll();
+  }
 }

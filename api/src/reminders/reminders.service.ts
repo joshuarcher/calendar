@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { format } from 'date-fns';
+import { addDays, format } from 'date-fns';
 import { Model } from 'mongoose';
 import { CreateReminderDto } from './dto/create-reminder.dto';
 import { UpdateReminderDto } from './dto/update-reminder.dto';
@@ -23,8 +23,10 @@ export class RemindersService {
 
     const reminders = {};
     allReminders.map((newReminder) => {
+      // NOTE: there is a bug here
+      // not sure why the keys are one day prior to the date of the reminder
       const key = format(new Date(newReminder.date), 'yyyyMMdd');
-      console.log(key);
+      // console.log({ key, date: newReminder.date });
       // check if key exists
       if (reminders[key]) {
         return (reminders[key] = [...reminders[key], newReminder]);
@@ -59,5 +61,9 @@ export class RemindersService {
 
   async delete(id: string) {
     return this.reminderModel.deleteOne({ _id: id });
+  }
+
+  async deleteAll() {
+    return this.reminderModel.deleteMany({});
   }
 }

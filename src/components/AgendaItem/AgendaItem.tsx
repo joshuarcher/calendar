@@ -6,6 +6,7 @@ import {
   createStyles,
 } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
+import { format } from "date-fns";
 // import { isSameMonth, isSameDay, getDate } from "date-fns";
 
 const styles = (theme: Theme) =>
@@ -39,7 +40,7 @@ interface DateObj {
 interface Props extends WithStyles<typeof styles> {
   event: {
     title: string;
-    time?: string;
+    date?: string;
     color: string;
   };
   // onDayClick: (dateObj: DateObj) => void;
@@ -48,7 +49,7 @@ interface Props extends WithStyles<typeof styles> {
 // this is different from the reminder item as it may have different styles
 const AgendaItem = (props: Props) => {
   const { classes, event } = props;
-  const { title, time, color } = event;
+  const { title, date, color } = event;
   return (
     <Typography variant="button">
       <div className={classes.reminderItem}>
@@ -59,7 +60,7 @@ const AgendaItem = (props: Props) => {
           ></span>
           {title}
         </div>
-        <span>{time || "All Day"}</span>
+        <span>{format(new Date(date), "h:mm bbb") || "All Day"}</span>
       </div>
     </Typography>
   );

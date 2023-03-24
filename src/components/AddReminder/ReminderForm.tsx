@@ -7,6 +7,7 @@ import {
   FormControlLabel,
   Switch,
 } from "@material-ui/core";
+import { TimePicker } from "material-ui-pickers";
 import React, { useState } from "react";
 import Alert from "../Alert";
 import ColorSelect from "./ColorSelector";
@@ -16,7 +17,7 @@ export default function ReminderForm() {
   const [formData, updateFormData] = useState({
     title: "",
     date: "",
-    startTime: "",
+    // startTime: "8:00",
     // endTime: "",
     color: "red",
     // notes: "",
@@ -114,9 +115,10 @@ export default function ReminderForm() {
         <Grid item xs={6}>
           <FormControl>
             <FormLabel>Date</FormLabel>
-            <Input
-              type="date"
+            <input
+              type="datetime-local"
               name="date"
+              step={"900"}
               value={formData.date}
               onChange={handleChange}
             />
@@ -133,28 +135,30 @@ export default function ReminderForm() {
         </Grid>
         {/* Conditionally display time if AllDay is unchecked */}
         {!allDay && (
-          <>
-            <Grid item xs={6}>
-              <FormControl>
-                <FormLabel>Start Time</FormLabel>
-                <Input
-                  type="time"
-                  name="time"
-                  value={formData.startTime}
-                  onChange={handleChange}
-                />
-              </FormControl>
-              {/* <FormControl>
-                <FormLabel>End Time</FormLabel>
-                <Input
-                  type="time"
-                  name="time"
-                  value={formData.endTime}
-                  onChange={handleChange}
-                />
-              </FormControl> */}
-            </Grid>
-          </>
+          // <>
+          //   <Grid item xs={6}>
+          //     <FormControl>
+          //       <FormLabel>Start Time</FormLabel>
+          //       <input
+          //         type="time"
+          //         name="startTime"
+          //         onChange={handleChange}
+          //         step="900"
+          //         value={formData.startTime}
+          //       />
+          //     </FormControl>
+          //     {/* <FormControl>
+          //       <FormLabel>End Time</FormLabel>
+          //       <Input
+          //         type="time"
+          //         name="time"
+          //         value={formData.endTime}
+          //         onChange={handleChange}
+          //       />
+          //     </FormControl> */}
+          //   </Grid>
+          // </>
+          <></>
         )}
         {/* <Grid item xs={6}>
           <FormControl>

@@ -6,6 +6,7 @@ import {
   createStyles,
 } from "@material-ui/core/styles";
 import { Button, Typography } from "@material-ui/core";
+import { format } from "date-fns";
 // import { isSameMonth, isSameDay, getDate } from "date-fns";
 
 const styles = (theme: Theme) =>
@@ -38,13 +39,13 @@ interface DateObj {
 
 interface Props extends WithStyles<typeof styles> {
   title: string;
-  time?: string;
+  date?: string;
   color: string; // TODO: Change to ENUM
   // onDayClick: (dateObj: DateObj) => void;
 }
 
 const ReminderItem = (props: Props) => {
-  const { classes, title, time, color } = props;
+  const { classes, title, date, color } = props;
   const eventClicked = () => {
     console.log("eventClicked");
   };
@@ -61,7 +62,7 @@ const ReminderItem = (props: Props) => {
             {title}
           </div>
           {/* This will display the time of the event in the users time zone */}
-          <span>{time || "All Day"}</span>
+          <span>{format(new Date(date), "h:mm bbb") || "All Day"}</span>
         </div>
       </Typography>
     </Button>
