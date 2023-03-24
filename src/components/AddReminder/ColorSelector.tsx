@@ -11,18 +11,17 @@ import {
 } from "@material-ui/core";
 import React from "react";
 
-const ColorSelect = (value, onChange) => {
+const ColorSelect = ({ name, value, handleChange }) => {
   return (
     <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">Color</FormLabel>
       <RadioGroup
+        row
         aria-labelledby="demo-radio-buttons-group-label"
         defaultValue="red"
-        name="radio-buttons-group"
-        onChange={(e) => {
-          console.log(e);
-          onChange();
-        }}
+        value={value}
+        name={name}
+        onChange={handleChange}
       >
         {/* Can make this a map of available colors to select in the future from ColorUtils.tsx */}
         <FormControlLabel

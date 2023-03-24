@@ -17,7 +17,7 @@ export default function ReminderForm() {
     title: "",
     date: "",
     startTime: "",
-    endTime: "",
+    // endTime: "",
     color: "red",
     // notes: "",
   });
@@ -26,7 +26,7 @@ export default function ReminderForm() {
     title: null,
     date: null,
     startTime: null,
-    endTime: null,
+    // endTime: null,
     color: null,
     // notes: null,
   });
@@ -144,7 +144,7 @@ export default function ReminderForm() {
                   onChange={handleChange}
                 />
               </FormControl>
-              <FormControl>
+              {/* <FormControl>
                 <FormLabel>End Time</FormLabel>
                 <Input
                   type="time"
@@ -152,7 +152,7 @@ export default function ReminderForm() {
                   value={formData.endTime}
                   onChange={handleChange}
                 />
-              </FormControl>
+              </FormControl> */}
             </Grid>
           </>
         )}
@@ -168,7 +168,39 @@ export default function ReminderForm() {
           </FormControl>
         </Grid> */}
         <Grid item xs={6}>
-          <ColorSelect value={formData.color} onChange={handleChange} />
+          <ColorSelect
+            value={formData.color}
+            handleChange={handleChange}
+            name="color"
+          />
+          {/* <select name="color" onChange={handleChange} value={formData.color}>
+            <option value={"red"}>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div
+                  style={{
+                    height: "1em",
+                    width: "1em",
+                    background: "red",
+                    marginRight: ".5em",
+                  }}
+                />
+                <span>Red</span>
+              </div>
+            </option>
+            <option value="yellow">
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div
+                  style={{
+                    height: "1em",
+                    width: "1em",
+                    background: "yellow",
+                    marginRight: ".5em",
+                  }}
+                />
+                <span>Yellow</span>
+              </div>
+            </option>
+          </select> */}
         </Grid>
         <Grid item xs={6}>
           <Button type="submit">Create Reminder</Button>

@@ -1,7 +1,7 @@
 ## Calendar ToDo
 - [x] Display exisiting reminders in the calendar 
   - this is related to the redux store which I am currently struggling to remember
-- [/] Ability To Add New Reminders
+- [x] Ability To Add New Reminders
   - [x] Added form to new reminder modal
   - [-] Add the form logic connecting to Redux 
     - [x] Reminders can be max of 30 characters 
