@@ -15,6 +15,7 @@ import {
 
 import * as dateFns from "date-fns";
 import AgendaItem from "../AgendaItem/AgendaItem";
+import { useAppContext } from "../..";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -43,13 +44,29 @@ interface Props extends WithStyles<typeof styles> {
   onClose: () => void;
 }
 
-
-
 const AgendaDay = (props: Props) => {
   const { classes, agendaStatus, onClose } = props;
+
   const dateTitle = agendaStatus.date
     ? dateFns.format(agendaStatus.date, "LLLL do, yyyy")
     : "Closing";
+
+  const appContext = useAppContext();
+  let todaysEvents = [];
+  if (agendaStatus.isOpen) {
+    const { events } = appContext;
+
+    const eventDayUTC = dateFns.format(agendaStatus.date, "yyyyMMdd");
+
+    todaysEvents = events[eventDayUTC];
+
+    todaysEvents.sort((eventA, eventB) => {
+      return dateFns.compareAsc(
+        dateFns.parseISO(eventA.date),
+        dateFns.parseISO(eventB.date)
+      );
+    });
+  }
 
   return (
     <Dialog
@@ -74,9 +91,9 @@ const AgendaDay = (props: Props) => {
         <Typography variant="h6">Agenda</Typography>
         {/* Display Agenda Items Here */}
         {/* TODO: This should get the same events that were passed to the day container and list them in correct time order for each event/reminder */}
-        <AgendaItem title="Example" />
-        <AgendaItem title="Example 2" />
-        <AgendaItem title="Example 3" />
+        {todaysEvents.map((event, i) => (
+          <AgendaItem key={i} title={event.title} />
+        ))}
       </DialogContent>
     </Dialog>
   );

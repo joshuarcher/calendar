@@ -31,6 +31,16 @@ export default function ReminderForm() {
     // notes: null,
   });
 
+  // function handleChange(e) {
+  //   e.preventDefault();
+  //   const name = e.target.name;
+  //   const value = e.target.value;
+
+  //   updateFormData({ ...formData, [name]: value });
+
+  //   console.log(formData);
+  // }
+
   function handleChange(e) {
     e.preventDefault();
     const name = e.target.name;
@@ -46,6 +56,8 @@ export default function ReminderForm() {
       method: "POST",
       body: JSON.stringify({
         ...formData,
+        date: new Date(formData.date),
+        allDay,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -74,8 +86,12 @@ export default function ReminderForm() {
         title: "Event title can be no more than 30 characters",
       });
     }
+
     if (!formData.date) {
-      return;
+      return setErrors({
+        ...hasErrors,
+        date: "Please select a date.",
+      });
     }
     // handle form submission to db
     addReminder();
@@ -104,6 +120,7 @@ export default function ReminderForm() {
               value={formData.date}
               onChange={handleChange}
             />
+            {hasErrors.date && <Alert message={hasErrors.date} />}
           </FormControl>
         </Grid>
         <Grid item xs={6}>
@@ -150,9 +167,9 @@ export default function ReminderForm() {
             />
           </FormControl>
         </Grid> */}
-        {/* <Grid item xs={6}>
+        <Grid item xs={6}>
           <ColorSelect value={formData.color} onChange={handleChange} />
-        </Grid> */}
+        </Grid>
         <Grid item xs={6}>
           <Button type="submit">Create Reminder</Button>
         </Grid>
