@@ -1,8 +1,10 @@
-export class Reminder {
-  id: string;
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+
+@Schema()
+export class Reminder extends Document {
+  @Prop()
   title: string;
-  // date: Date;
-  // startTime: string;
-  // endTime: string;
-  // notes: string;
 }
+
+export const ReminderSchema = SchemaFactory.createForClass(Reminder);

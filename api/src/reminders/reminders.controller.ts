@@ -19,7 +19,9 @@ export class RemindersController {
   @Get()
   findAll(@Query() paginationQuery) {
     // const { limit, offset } = paginationQuery;
+
     // TODO: set default offset and limit
+    // We can later add a pagination DTO with the limit and offset to pass as parameters to the ReminderService
     return this.remindersService.findAll();
   }
   @Get(':id')
