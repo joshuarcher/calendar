@@ -38,6 +38,8 @@ Once you've completed the assignment, please submit a pull request to your own r
 
 ## Technologies Used
 
+  > In order to run CRA you will need to have Nodejs v16 installed in your computer. Please note that v18 is not compatible with the current version of CRA.
+  
   * React v16.8 and was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
   * React Hooks for React state and lifecycle features. For an overview of React Hooks, visit [React's Hooks at a Glance](https://reactjs.org/docs/hooks-overview.html).
