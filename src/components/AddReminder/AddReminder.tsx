@@ -1,40 +1,19 @@
 import React from "react";
-import CloseIcon from "@material-ui/icons/Close";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import {
-  WithStyles,
-  withStyles,
-  createStyles,
-  Theme,
-} from "@material-ui/core/styles";
+import CloseIcon from "@mui/icons-material/Close";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 
-const styles = (theme: Theme) =>
-  createStyles({
-    addReminderFormContainer: {
-      minHeight: "250px",
-      marginTop: "10px",
-      display: "flex",
-      flexDirection: "column",
-    },
-    closeButton: {
-      position: "absolute",
-      right: "10px",
-      top: "10px",
-    },
-  });
-
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
 
 const AddReminder = (props: Props) => {
-  const { classes, isOpen, onClose } = props;
+  const { isOpen, onClose } = props;
 
   return (
     <Dialog
@@ -48,14 +27,21 @@ const AddReminder = (props: Props) => {
         Add Reminder
         <IconButton
           aria-label="Close"
-          className={classes.closeButton}
+          sx={{ position: "absolute", right: "10px", top: "10px" }}
           onClick={onClose}
         >
           <CloseIcon />
         </IconButton>
       </DialogTitle>
       <Divider light />
-      <DialogContent className={classes.addReminderFormContainer}>
+      <DialogContent
+        sx={{
+          minHeight: "250px",
+          marginTop: "10px",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <Typography>
           Use this space to create the UI to add a reminder to the calendar.
         </Typography>
@@ -64,4 +50,4 @@ const AddReminder = (props: Props) => {
   );
 };
 
-export default withStyles(styles)(AddReminder);
+export default AddReminder;
