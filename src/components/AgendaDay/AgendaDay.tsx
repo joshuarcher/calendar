@@ -1,40 +1,15 @@
 import React from "react";
-import CloseIcon from "@material-ui/icons/Close";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import {
-  WithStyles,
-  withStyles,
-  Theme,
-  createStyles,
-} from "@material-ui/core/styles";
+import CloseIcon from "@mui/icons-material/Close";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 
 import * as dateFns from "date-fns";
 
-const styles = (theme: Theme) =>
-  createStyles({
-    remindersContainer: {
-      minHeight: "250px",
-      marginTop: "10px",
-    },
-    closeButton: {
-      position: "absolute",
-      right: "10px",
-      top: "10px",
-    },
-    toolbarButtonHidden: {
-      visibility: "hidden",
-    },
-    toolbarButtonVisible: {
-      visibility: "visible",
-    },
-  });
-
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   agendaStatus: {
     isOpen: boolean;
     date: Date;
@@ -43,7 +18,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const AgendaDay = (props: Props) => {
-  const { classes, agendaStatus, onClose } = props;
+  const { agendaStatus, onClose } = props;
   const dateTitle = agendaStatus.date
     ? dateFns.format(agendaStatus.date, "LLLL do, yyyy")
     : "Closing";
@@ -60,18 +35,18 @@ const AgendaDay = (props: Props) => {
         {dateTitle}
         <IconButton
           aria-label="Close"
-          className={classes.closeButton}
+          sx={{ position: "absolute", right: "10px", top: "10px" }}
           onClick={onClose}
         >
           <CloseIcon />
         </IconButton>
       </DialogTitle>
       <Divider light />
-      <DialogContent className={classes.remindersContainer}>
+      <DialogContent sx={{ minHeight: "250px", marginTop: "10px" }}>
         <Typography>Use this space to list the reminders.</Typography>
       </DialogContent>
     </Dialog>
   );
 };
 
-export default withStyles(styles)(AgendaDay);
+export default AgendaDay;

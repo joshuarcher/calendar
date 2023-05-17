@@ -1,25 +1,6 @@
-import React from "react";
-import {
-  WithStyles,
-  withStyles,
-  Theme,
-  createStyles,
-} from "@material-ui/core/styles";
 import CalendarDayContainer from "../CalendarDay/CalendarDayContainer";
 
-const styles = (theme: Theme) =>
-  createStyles({
-    monthContainer: {
-      display: "flex",
-      width: "100%",
-      flexGrow: 1,
-      flexDirection: "row",
-      flexWrap: "wrap",
-      border: "1px solid lightgray",
-    },
-  });
-
-interface Props extends WithStyles<typeof styles> {
+interface Props {
   calendarCells: {
     date: Date;
   }[];
@@ -27,7 +8,14 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const MonthContainer = (props: Props) => (
-  <div className={props.classes.monthContainer}>
+  <div css={{
+    display: "flex",
+    width: "100%",
+    flexGrow: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    border: "1px solid lightgray",
+  }}>
     {props.calendarCells.map((dateObj, i) => (
       <CalendarDayContainer
         key={i}
@@ -38,4 +26,4 @@ const MonthContainer = (props: Props) => (
   </div>
 );
 
-export default withStyles(styles)(MonthContainer);
+export default MonthContainer;
