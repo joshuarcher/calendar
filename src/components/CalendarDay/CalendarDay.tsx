@@ -5,6 +5,8 @@ import { isSameMonth, isSameDay, getDate } from "date-fns";
 import { SxProps } from '@mui/system';
 
 import { css } from "@emotion/react";
+import { Typography } from "@mui/material";
+import { ReminderDTO } from "../../redux/actions";
 
 const dayCellStyles = (isSameMonth) => css`
   display: flex;
@@ -48,13 +50,14 @@ interface DateObj {
 }
 
 interface Props {
+  reminders: [ReminderDTO];
   calendarDate: Date;
   dateObj: DateObj;
   onDayClick: (dateObj: DateObj) => void;
 }
 
 const CalendarDay = (props: Props) => {
-  const { dateObj, calendarDate, onDayClick } = props;
+  const { dateObj, calendarDate, onDayClick, reminders } = props;
   const [isFocussed, setFocused] = useState(false);
 
   const isToday = isSameDay(dateObj.date, new Date());
@@ -75,7 +78,13 @@ const CalendarDay = (props: Props) => {
           height: "100%",
         }}
       >
-        {/* reminders go here */}
+        {reminders.map(reminder => {
+          return (
+            <Typography>
+              <span css={{ borderRadius: '50%', background: reminder.color }} /><span>{reminder.title}</span>
+            </Typography>
+          )
+        })}
       </div>
     </div>
   );

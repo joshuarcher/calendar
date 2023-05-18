@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import AddReminder from "./AddReminder";
-import { closeAddReminder } from "../../redux/actions";
+import { addReminder, closeAddReminder, ReminderDTO } from "../../redux/actions";
 
 interface State {
   addReminderStatus: {
@@ -19,6 +19,9 @@ const mapDispatchToProps = (dispatch: any) => {
     onClose: () => {
       dispatch(closeAddReminder());
     },
+    addReminder: (reminder: ReminderDTO) => {
+      dispatch(addReminder(reminder))
+    }
   };
 };
 

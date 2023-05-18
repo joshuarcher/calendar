@@ -3,6 +3,8 @@ import { createRoot } from "react-dom/client";
 import AppContainer from "./components/App/AppContainer";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import calendarApp from "./redux/reducers";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
@@ -22,7 +24,9 @@ const root = createRoot(document.getElementById("root"));
 
 root.render(
   <Provider store={store as any}>
-    <AppContainer />
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <AppContainer />
+    </LocalizationProvider>
   </Provider>
 );
 
